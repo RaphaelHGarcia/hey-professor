@@ -9,10 +9,11 @@ class QuestionController extends Controller
 {
     public function store(Request $request)
     {
-
-        Question::query()->create([
-           'question' => $request->question
+        $attributes = $request->validate([
+            'question' => ['min:10']
         ]);
+
+        Question::query()->create($attributes);
 
         return redirect(route('dashboard'));
     }
